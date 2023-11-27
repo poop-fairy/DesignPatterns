@@ -18,7 +18,7 @@ class IObservable(ABC):
         pass
     
     @abstractmethod
-    def update(self, Observer):
+    def notifyObservers(self, Observer):
         #Call Observer's update method
         pass
 
@@ -45,15 +45,15 @@ class StockMarket(IObservable):
         if Observer in self._observe:
             self._observe.remove(Observer)
             return
-        Exception('The Stock is not present in the subscription list')
+        raise Exception('The Dashboard is not present in the subscription list')
     
-    def update(self,stock,new_price):
+    def notifyObservers(self,stock,new_price):
         for obs in self._observe:
             obs.update(stock,new_price)
             
     def updateStockPrice(self,stock,new_price):
         self.dict_of_tracked_stocks[stock] = new_price
-        self.update(stock,new_price)
+        self.notifyObservers(stock,new_price)
 
 class UserSideTicker(IObserver):
 
@@ -61,15 +61,17 @@ class UserSideTicker(IObserver):
         self.name = name
 
     def update(self,stock,price):
-            print(('Update for {dashboard}- ').format(dashboard=self.name),stock,':',price,'\n')
+            print(('Update for {dashboard}- ').format(dashboard=self.name),stock,':',price)
 
 stock_prices = StockMarket()
 stock_dashboard_1 = UserSideTicker('Dashboard 1')
 stock_dashboard_2 = UserSideTicker('Dashboard 2')
 stock_dashboard_3 = UserSideTicker('Dashboard 3')
 
-# stock_prices.subscribe(stock_dashboard_1)
-# stock_prices.subscribe(stock_dashboard_2)
-stock_prices.unsubscribe(stock_dashboard_3)
+stock_prices.subscribe(stock_dashboard_1)
+stock_prices.subscribe(stock_dashboard_2)
+stock_prices.subscribe(stock_dashboard_3)
+stock_prices.unsubscribe(stock_dashboard_2)
 
-# stock_prices.updateStockPrice('AAPL',188.43)
+stock_prices.updateStockPrice('MFST',401.43)
+stock_prices.updateStockPrice('AAPL',190.43)
