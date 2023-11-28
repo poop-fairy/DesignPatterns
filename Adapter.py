@@ -65,4 +65,4 @@ class CelciusToFarheniteAdapter(ICelciusToFarheniteAdapter):
 city = input('Enter city name: ')
 current_temprature = GetCurrentTempratureInCelcius(city)
 temp_in_farhenite = CelciusToFarheniteAdapter(current_temprature)
-print('Hi American, the current Temprature is: {temp} F'.format(temp = temp_in_farhenite.convertCelciusToFarhenite()))
+print('Hi American, the current Temprature is in {fcity} is {temp} F'.format(temp = round(temp_in_farhenite.convertCelciusToFarhenite(),2),fcity=city))
