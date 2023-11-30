@@ -34,4 +34,4 @@ s1.setConfiguration("ip_address", "192.168.1.1")
 s2.setConfiguration("proxy_server", "100.0.0.1")
 s2.setConfiguration("ip_version", "IPv4")
 
-print("ip_address:", s2.getConfiguration("ip_address"))
+print("ip_address:", s1.getConfiguration("ip_address"))
